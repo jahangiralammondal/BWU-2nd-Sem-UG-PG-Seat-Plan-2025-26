@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BWU Seat Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f1f5fb;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-secondary: #64748b;
+            --primary-blue: #1d4ed8;
+            --primary-hover: #1e40af;
+            --icon-bg: #eff6ff;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Background Waves */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            border: 2px solid rgba(29, 78, 216, 0.03);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body::after {
+            width: 1200px;
+            height: 1200px;
+            border: 1px solid rgba(29, 78, 216, 0.02);
+        }
+
+        .container {
+            background: var(--card-bg);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header img {
+            height: 48px;
+            width: auto;
+        }
+
+        .header-text h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .header-text p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .main-content {
+            padding: 48px 40px 32px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .icon-wrapper {
+            width: 72px;
+            height: 72px;
+            background: var(--icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+
+        .icon-wrapper svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        h1.title {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        p.subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .search-container {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group svg {
+            position: absolute;
+            left: 20px;
+            color: var(--text-secondary);
+            width: 20px;
+            height: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 20px 16px 52px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 16px;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+        }
+
+        .search-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .search-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 48px;
+        }
+
+        .hint svg {
+            width: 16px;
+            height: 16px;
+            color: var(--primary-blue);
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--icon-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+        }
+
+        .feature-text h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .feature-text p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .footer {
+            background: #f8fafc;
+            padding: 24px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer svg {
+            width: 16px;
+            height: 16px;
+            color: var(--primary-blue);
+        }
+
+        /* Results Styles */
+        .result {
+            width: 100%;
+            max-width: 700px;
+            margin-top: 24px;
+            display: none;
+            text-align: left;
+        }
+
+        .result.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-inner.error-state {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .result-inner.error-state .err-msg {
+            flex: 1;
+        }
+
+        .result-inner.error-state strong {
+            color: var(--error-color);
+            display: block;
+            margin-bottom: 4px;
+            font-size: 16px;
+        }
+
+        .result-inner.error-state p {
+            color: #991b1b;
+            font-size: 14px;
+        }
+
+        .result-inner.success-state {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .result-top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+        }
+
+        .result-top-header img {
+            height: 48px;
+        }
+
+        .roll-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .roll-pill .icon {
+            color: var(--primary-blue);
+            background: #f0f7ff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .roll-pill .text-box p {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .roll-pill .text-box strong {
+            font-size: 15px;
+            color: var(--primary-blue);
+        }
+
+        .success-banner {
+            background: #f0fdf4;
+            border: 1px solid #dcfce7;
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-banner::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #86efac 0%, transparent 60%);
+            opacity: 0.3;
+        }
+
+        .success-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #86efac 0%, transparent 60%);
+            opacity: 0.3;
+        }
+
+        .success-banner .check-circle {
+            background: #10b981;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .success-banner .banner-text {
+            z-index: 1;
+        }
+
+        .success-banner .banner-text h3 {
+            color: #166534;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .success-banner .banner-text p {
+            color: #15803d;
+            font-size: 13px;
+        }
+
+        .result-grid-new {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .info-card {
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .info-card.room {
+            background: #f0f9ff;
+            border-color: #e0f2fe;
+        }
+
+        .info-card.room .icon-box {
+            color: #3b82f6;
+        }
+
+        .info-card.room .value {
+            color: #1e40af;
+        }
+
+        .info-card.building {
+            background: #f5f3ff;
+            border-color: #ede9fe;
+        }
+
+        .info-card.building .icon-box {
+            color: #8b5cf6;
+        }
+
+        .info-card.building .value {
+            color: #4c1d95;
+        }
+
+        .info-card.floor {
+            background: #fffbeb;
+            border-color: #fef3c7;
+        }
+
+        .info-card.floor .icon-box {
+            color: #f59e0b;
+        }
+
+        .info-card.floor .value {
+            color: #b45309;
+        }
+
+        .info-card.prog {
+            background: #f0fdf4;
+            border-color: #dcfce7;
+        }
+
+        .info-card.prog .icon-box {
+            color: #10b981;
+        }
+
+        .info-card.prog .value {
+            color: #166534;
+        }
+
+        .icon-box {
+            background: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        .info-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-content .label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .info-content .value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid var(--border-color);
+            color: var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .btn-solid {
+            background: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+        }
+
+        .btn-solid:hover {
+            background: var(--primary-hover);
+        }
+
+        .footer-alert {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            margin-top: 8px;
+        }
+
+        .footer-alert svg {
+            color: var(--primary-blue);
+        }
+
+        .limit-warning {
+            position: absolute;
+            top: -54px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #ef4444;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            visibility: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 15px 30px -5px rgba(239, 68, 68, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            pointer-events: none;
+            z-index: 20;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: nowrap;
+        }
+
+        .limit-warning::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            background: #ef4444;
+        }
+
+        .limit-warning.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .limit-warning svg {
+            width: 18px;
+            height: 18px;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+            }
+
+            .features {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1.title {
+                font-size: 32px;
+            }
+
+            .main-content {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="logo.png" alt="Brainware University Logo" />
+            <div class="header-text">
+                <h2>Brainware University</h2>
+                <p>2nd Semester UG/PG Seat Plan 2025–26</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 3L1 9L4 10.636V17L12 21L20 17V10.636L23 9L12 3ZM20.5 10.636L12 15.272L3.5 10.636L12 6L20.5 10.636Z" />
+                    <path d="M6 12V16.364L12 19.364L18 16.364V12L12 15.272L6 12Z" />
+                </svg>
+            </div>
+
+            <h1 class="title">Exam Seat Finder</h1>
+            <p class="subtitle">Enter your roll number to find your exam seat instantly.</p>
+
+            <div class="search-container">
+                <div class="input-group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <input type="text" id="inp" placeholder="Enter 11-digit roll number" maxlength="11"
+                        oninput="handleInput(this)" onkeydown="if(event.key==='Enter')find()" />
+                    <div id="limit-warning" class="limit-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        Max 11 digits reached
+                    </div>
+                </div>
+                <button class="search-btn" onclick="find()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    Find Seat
+                </button>
+            </div>
+
+            <div class="hint">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+                Use the 11-digit roll number from your admit card
+            </div>
+
+            <div class="result" id="result"></div>
+
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <polyline points="9 12 11 14 15 10"></polyline>
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <h4>Secure & Private</h4>
+                        <p>Your data is safe with us</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <h4>Fast & Easy</h4>
+                        <p>Get your seat in seconds</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <h4>Accurate Results</h4>
+                        <p>100% verified information</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+            Need help? Contact your college administration.
+        </div>
+    </div>
+
+    <script>
+
+        // ─── SEAT DATA ────────────────────────────────────────────────────────────────
+        // Format: { prog, code, ranges: [{s,e,building,floor,room}] }
+        // code = 8-digit prefix of the 11-digit roll
+        // Ranges built from PDF (all 74 entries)
+
+        const programmes = [
+
+            // ── Jagadish Bhavan (Building IV) ──────────────────────────────────────────
+
+            {
+                prog: 'BBA(HM)-Hons', code: '25103540', ranges: [
+                    { s: 56, e: 67, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '005' },
+                    { s: 68, e: 83, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '012' },
+                    { s: 84, e: 101, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '017' },
+                    { s: 102, e: 116, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '018' },
+                    { s: 117, e: 131, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '019' },
+                    { s: 133, e: 148, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '020' },
+                    { s: 149, e: 163, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '021' },
+                    { s: 164, e: 167, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '022' },
+                    { s: 1, e: 10, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '711' },
+                    { s: 11, e: 23, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '712' },
+                    { s: 24, e: 39, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '714' },
+                    { s: 40, e: 54, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '715' },
+                ]
+            },
+
+            {
+                prog: 'LL.B.', code: '25103140', ranges: [
+                    { s: 26, e: 39, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '005' },
+                    { s: 40, e: 55, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '012' },
+                    { s: 56, e: 72, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '017' },
+                    { s: 73, e: 87, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '018' },
+                    { s: 88, e: 102, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '019' },
+                    { s: 103, e: 117, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '020' },
+                    { s: 118, e: 119, building: 'Jagadish Bhavan (Building IV)', floor: 'Ground Floor', room: '021' },
+                    { s: 1, e: 8, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '714' },
+                    { s: 9, e: 25, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '715' },
+                ]
+            },
+
+            // ── Rammohan Bhavan (Building VI) ──────────────────────────────────────────
+
+            {
+                prog: 'B.A.(Eng)-Hons', code: '25103450', ranges: [
+                    { s: 2, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '001' },
+                    { s: 17, e: 33, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '002' },
+                    { s: 34, e: 45, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '006' },
+                ]
+            },
+
+            {
+                prog: 'B.A. LL.B.', code: '25103440', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '001' },
+                    { s: 16, e: 31, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '002' },
+                    { s: 33, e: 47, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '006' },
+                    { s: 48, e: 64, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '007' },
+                    { s: 65, e: 79, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                    { s: 80, e: 94, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                    { s: 95, e: 110, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                    { s: 111, e: 125, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '011' },
+                    { s: 126, e: 142, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '013' },
+                    { s: 143, e: 157, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '014' },
+                    { s: 158, e: 174, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '101' },
+                    { s: 175, e: 180, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                ]
+            },
+
+            {
+                prog: 'B.Tech.(CSE)', code: '25103070', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '001' },
+                    { s: 16, e: 30, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '002' },
+                    { s: 31, e: 45, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '006' },
+                    { s: 46, e: 60, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '007' },
+                    { s: 61, e: 75, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                    { s: 76, e: 90, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                    { s: 91, e: 105, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                    { s: 106, e: 120, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '011' },
+                    { s: 121, e: 135, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '013' },
+                    { s: 136, e: 150, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '014' },
+                    { s: 151, e: 166, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '101' },
+                    { s: 167, e: 169, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                    { s: 170, e: 184, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '103' },
+                    { s: 185, e: 199, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '107' },
+                    { s: 200, e: 214, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '108' },
+                    { s: 215, e: 232, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                    { s: 233, e: 247, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '110' },
+                    { s: 248, e: 262, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '111' },
+                    { s: 263, e: 277, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '112' },
+                    { s: 278, e: 292, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '114' },
+                    { s: 293, e: 307, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '115' },
+                    { s: 308, e: 322, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '201' },
+                    { s: 323, e: 337, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '208' },
+                    { s: 338, e: 352, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                    { s: 353, e: 368, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '210' },
+                    { s: 370, e: 385, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '211' },
+                    { s: 386, e: 388, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                ]
+            },
+
+            {
+                prog: 'B.Tech.(CSE)-AIML', code: '25103320', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                    { s: 16, e: 30, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '103' },
+                    { s: 31, e: 45, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '107' },
+                    { s: 46, e: 60, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '108' },
+                    { s: 61, e: 76, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                    { s: 77, e: 91, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '110' },
+                    { s: 92, e: 106, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '111' },
+                    { s: 107, e: 121, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '112' },
+                    { s: 122, e: 136, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '114' },
+                    { s: 137, e: 151, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '115' },
+                    { s: 152, e: 167, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '201' },
+                    { s: 168, e: 182, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '208' },
+                    { s: 183, e: 197, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                    { s: 198, e: 212, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '210' },
+                    { s: 213, e: 227, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '211' },
+                    { s: 228, e: 240, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                    { s: 241, e: 256, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                    { s: 257, e: 267, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '308' },
+                    { s: 268, e: 283, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                    { s: 284, e: 298, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                    { s: 299, e: 313, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '311' },
+                    { s: 314, e: 328, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '312' },
+                    { s: 329, e: 343, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '314' },
+                    { s: 344, e: 358, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '315' },
+                    { s: 359, e: 373, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '502' },
+                    { s: 374, e: 388, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '508' },
+                    { s: 389, e: 404, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '509' },
+                    { s: 405, e: 421, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '510' },
+                    { s: 422, e: 436, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '511' },
+                    { s: 437, e: 451, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '512' },
+                    { s: 452, e: 467, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '514' },
+                    { s: 468, e: 482, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '515' },
+                    { s: 483, e: 497, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '602' },
+                    { s: 498, e: 513, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '603' },
+                    { s: 514, e: 528, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '605' },
+                    { s: 529, e: 543, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '606' },
+                    { s: 544, e: 560, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '607' },
+                    { s: 561, e: 575, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '608' },
+                    { s: 576, e: 590, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '609' },
+                    { s: 591, e: 605, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '610' },
+                    { s: 606, e: 621, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '611' },
+                    { s: 622, e: 631, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '612' },
+                ]
+            },
+
+            {
+                prog: 'B.Tech.(CSE)-DS', code: '25103330', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '607' },
+                    { s: 16, e: 31, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '608' },
+                    { s: 32, e: 46, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '609' },
+                    { s: 47, e: 61, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '610' },
+                    { s: 62, e: 76, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '611' },
+                    { s: 77, e: 81, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '612' },
+                ]
+            },
+
+            {
+                prog: 'B.Tech.(CSE)-AIR', code: '25103600', ranges: [
+                    { s: 1, e: 4, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '510' },
+                    { s: 5, e: 19, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '511' },
+                    { s: 20, e: 34, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '512' },
+                    { s: 35, e: 45, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '514' },
+                ]
+            },
+
+            {
+                prog: 'B.Tech.(CSE)-CYS', code: '25103610', ranges: [
+                    { s: 1, e: 4, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '514' },
+                    { s: 5, e: 19, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '515' },
+                    { s: 20, e: 34, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '602' },
+                    { s: 35, e: 49, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '603' },
+                    { s: 50, e: 66, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '605' },
+                    { s: 67, e: 80, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '606' },
+                ]
+            },
+
+            {
+                prog: 'B.Tech.(BT)', code: '25103590', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '001' },
+                    { s: 16, e: 30, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '002' },
+                    { s: 31, e: 45, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '006' },
+                    { s: 46, e: 60, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '007' },
+                    { s: 61, e: 76, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                    { s: 77, e: 91, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                    { s: 92, e: 106, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                    { s: 107, e: 121, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '011' },
+                    { s: 122, e: 136, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '013' },
+                    { s: 137, e: 152, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '014' },
+                    { s: 154, e: 169, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '101' },
+                    { s: 170, e: 183, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                ]
+            },
+
+            {
+                prog: 'BCA-Hons', code: '25103460', ranges: [
+                    { s: 1, e: 8, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                    { s: 9, e: 26, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                    { s: 27, e: 44, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '011' },
+                    { s: 45, e: 59, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '013' },
+                    { s: 60, e: 75, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '014' },
+                    { s: 76, e: 91, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '101' },
+                    { s: 93, e: 102, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                    { s: 103, e: 117, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '103' },
+                    { s: 118, e: 132, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '107' },
+                    { s: 133, e: 147, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '108' },
+                    { s: 148, e: 163, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                    { s: 164, e: 179, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '110' },
+                    { s: 180, e: 194, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '111' },
+                    { s: 195, e: 210, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '112' },
+                    { s: 211, e: 226, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '114' },
+                    { s: 227, e: 241, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '115' },
+                    { s: 242, e: 256, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '201' },
+                    { s: 258, e: 272, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '208' },
+                    { s: 273, e: 287, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                    { s: 288, e: 302, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '210' },
+                    { s: 303, e: 317, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '211' },
+                    { s: 318, e: 332, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                    { s: 333, e: 348, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                    { s: 349, e: 359, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '308' },
+                    { s: 360, e: 375, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                    { s: 376, e: 390, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                    { s: 392, e: 408, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '311' },
+                    { s: 409, e: 423, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '312' },
+                    { s: 424, e: 438, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '314' },
+                    { s: 439, e: 453, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '315' },
+                    { s: 454, e: 469, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '502' },
+                    { s: 470, e: 473, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '508' },
+                ]
+            },
+
+            {
+                prog: 'B.Com.(AFB)-Hons', code: '25103520', ranges: [
+                    { s: 1, e: 4, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '006' },
+                    { s: 5, e: 21, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '007' },
+                    { s: 22, e: 38, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                    { s: 39, e: 47, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                ]
+            },
+
+            {
+                prog: 'B.Pharm', code: '25103090', ranges: [
+                    { s: 1, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '001' },
+                    { s: 17, e: 32, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '002' },
+                    { s: 33, e: 47, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '006' },
+                    { s: 48, e: 64, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '007' },
+                    { s: 66, e: 80, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                    { s: 81, e: 95, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                    { s: 96, e: 98, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                ]
+            },
+
+            {
+                prog: 'D.Pharm', code: '25104040', ranges: [
+                    { s: 1, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '001' },
+                    { s: 17, e: 32, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '002' },
+                    { s: 33, e: 48, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '006' },
+                    { s: 49, e: 58, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '007' },
+                ]
+            },
+
+            {
+                prog: 'B.Optometry', code: '25103110', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '001' },
+                    { s: 16, e: 30, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '002' },
+                    { s: 31, e: 45, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '006' },
+                    { s: 46, e: 60, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '007' },
+                    { s: 61, e: 75, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                    { s: 76, e: 90, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                    { s: 91, e: 105, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                    { s: 106, e: 120, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '011' },
+                ]
+            },
+
+            {
+                prog: 'LLM', code: '25102140', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '001' },
+                    { s: 16, e: 30, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '002' },
+                    { s: 31, e: 45, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '006' },
+                    { s: 46, e: 50, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '007' },
+                ]
+            },
+
+            {
+                prog: 'MCA', code: '25102410', ranges: [
+                    { s: 1, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '011' },
+                    { s: 17, e: 31, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '013' },
+                    { s: 32, e: 37, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '014' },
+                    { s: 38, e: 53, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '101' },
+                    { s: 54, e: 69, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                    { s: 70, e: 84, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '103' },
+                    { s: 85, e: 99, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '107' },
+                    { s: 100, e: 115, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '108' },
+                    { s: 116, e: 130, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                    { s: 131, e: 147, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '110' },
+                    { s: 148, e: 162, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '111' },
+                    { s: 163, e: 179, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '112' },
+                    { s: 180, e: 194, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '114' },
+                    { s: 195, e: 210, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '115' },
+                    { s: 211, e: 225, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '201' },
+                    { s: 226, e: 240, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '208' },
+                    { s: 241, e: 256, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                    { s: 257, e: 269, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '210' },
+                ]
+            },
+
+            {
+                prog: 'MBA', code: '25102380', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '014' },
+                    { s: 16, e: 31, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '101' },
+                    { s: 32, e: 47, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                    { s: 49, e: 65, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '103' },
+                    { s: 66, e: 80, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '107' },
+                    { s: 81, e: 95, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '108' },
+                    { s: 96, e: 111, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                    { s: 112, e: 126, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '110' },
+                    { s: 127, e: 143, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '111' },
+                    { s: 144, e: 159, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '112' },
+                    { s: 160, e: 172, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '114' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(AM)', code: '25102430', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                    { s: 16, e: 24, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '011' },
+                    { s: 25, e: 39, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '013' },
+                    { s: 40, e: 48, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '014' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(AG)-Agronomy', code: '25102330', ranges: [
+                    { s: 1, e: 14, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                    { s: 15, e: 20, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '011' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(Ag)-Hons', code: '25103280', ranges: [
+                    { s: 1, e: 12, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                    { s: 13, e: 27, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '011' },
+                    { s: 28, e: 43, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '013' },
+                    { s: 44, e: 59, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '014' },
+                    { s: 60, e: 75, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '101' },
+                    { s: 76, e: 91, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                    { s: 92, e: 106, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '103' },
+                    { s: 107, e: 122, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '107' },
+                    { s: 123, e: 137, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '108' },
+                    { s: 138, e: 139, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(MRIT)', code: '25103180', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '013' },
+                    { s: 16, e: 33, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '014' },
+                    { s: 34, e: 49, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '101' },
+                    { s: 50, e: 66, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                    { s: 67, e: 81, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '103' },
+                    { s: 82, e: 96, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '107' },
+                    { s: 97, e: 111, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '108' },
+                    { s: 112, e: 119, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(MLT)', code: '25103120', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                    { s: 16, e: 31, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '110' },
+                    { s: 32, e: 46, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '111' },
+                    { s: 47, e: 62, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '112' },
+                    { s: 63, e: 77, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '114' },
+                    { s: 78, e: 92, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '115' },
+                    { s: 93, e: 107, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '201' },
+                    { s: 108, e: 116, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '208' },
+                ]
+            },
+
+            {
+                prog: 'B.Physiotherapy', code: '25103260', ranges: [
+                    { s: 1, e: 6, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                    { s: 7, e: 21, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '110' },
+                    { s: 22, e: 38, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '111' },
+                    { s: 39, e: 53, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '112' },
+                    { s: 54, e: 68, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '114' },
+                    { s: 69, e: 85, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '115' },
+                    { s: 86, e: 103, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '201' },
+                    { s: 104, e: 120, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '208' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(AM)-Hons', code: '25103500', ranges: [
+                    { s: 1, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '102' },
+                    { s: 17, e: 31, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '103' },
+                    { s: 32, e: 46, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '107' },
+                    { s: 47, e: 61, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '108' },
+                    { s: 62, e: 78, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '109' },
+                    { s: 79, e: 93, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '110' },
+                    { s: 94, e: 108, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '111' },
+                    { s: 109, e: 123, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '112' },
+                    { s: 124, e: 138, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '114' },
+                    { s: 139, e: 153, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '115' },
+                    { s: 154, e: 168, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '201' },
+                    { s: 169, e: 183, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '208' },
+                    { s: 184, e: 187, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(ANCS)', code: '25102420', ranges: [
+                    { s: 1, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'First Floor', room: '115' },
+                    { s: 17, e: 31, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '201' },
+                    { s: 33, e: 47, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '208' },
+                    { s: 48, e: 57, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(ANCS)-Hons', code: '25103480', ranges: [
+                    { s: 1, e: 11, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                    { s: 12, e: 27, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '210' },
+                    { s: 28, e: 42, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '211' },
+                    { s: 43, e: 59, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                    { s: 61, e: 75, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                    { s: 76, e: 86, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '308' },
+                    { s: 87, e: 102, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                    { s: 103, e: 118, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                    { s: 119, e: 134, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '311' },
+                    { s: 135, e: 149, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '312' },
+                    { s: 150, e: 164, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '314' },
+                    { s: 165, e: 181, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '315' },
+                    { s: 182, e: 198, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '502' },
+                    { s: 199, e: 212, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '508' },
+                    { s: 213, e: 227, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '509' },
+                ]
+            },
+
+            {
+                prog: 'Dip.CSE', code: '25104010', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                    { s: 18, e: 32, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                    { s: 33, e: 43, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '308' },
+                    { s: 44, e: 61, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                    { s: 62, e: 76, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                    { s: 77, e: 91, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '311' },
+                    { s: 92, e: 107, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '312' },
+                    { s: 108, e: 122, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '314' },
+                    { s: 123, e: 137, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '315' },
+                    { s: 138, e: 153, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '502' },
+                    { s: 155, e: 172, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '508' },
+                    { s: 173, e: 190, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '509' },
+                    { s: 191, e: 201, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '510' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(OTT)', code: '25103300', ranges: [
+                    { s: 1, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                    { s: 17, e: 32, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '210' },
+                    { s: 33, e: 47, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '211' },
+                    { s: 48, e: 62, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                    { s: 63, e: 75, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                    { s: 77, e: 87, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '308' },
+                    { s: 88, e: 89, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(CCT)', code: '25103310', ranges: [
+                    { s: 1, e: 6, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '208' },
+                    { s: 7, e: 23, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                    { s: 24, e: 39, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '210' },
+                    { s: 40, e: 56, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '211' },
+                    { s: 57, e: 73, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                    { s: 74, e: 75, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(BT)', code: '25102450', ranges: [
+                    { s: 1, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '211' },
+                    { s: 17, e: 25, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                    { s: 26, e: 40, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                    { s: 41, e: 51, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '308' },
+                    { s: 53, e: 62, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(APSY)', code: '25102440', ranges: [
+                    { s: 2, e: 8, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '209' },
+                    { s: 9, e: 11, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '210' },
+                    { s: 12, e: 28, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '211' },
+                    { s: 29, e: 34, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(BI)', code: '25102340', ranges: [
+                    { s: 1, e: 14, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '210' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(MATH)', code: '25102460', ranges: [
+                    { s: 1, e: 6, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(MB)', code: '25102480', ranges: [
+                    { s: 1, e: 5, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(MLT)', code: '25102290', ranges: [
+                    { s: 1, e: 5, building: 'Rammohan Bhavan (Building VI)', floor: 'Second Floor', room: '213' },
+                    { s: 6, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(MSJ)', code: '25102470', ranges: [
+                    { s: 1, e: 5, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                    { s: 6, e: 10, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '308' },
+                ]
+            },
+
+            {
+                prog: 'M.Sc.(ND)', code: '25102360', ranges: [
+                    { s: 2, e: 7, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '308' },
+                    { s: 8, e: 12, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                    { s: 13, e: 24, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                ]
+            },
+
+            {
+                prog: 'M.Tech.(CSE)', code: '25102490', ranges: [
+                    { s: 1, e: 3, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                ]
+            },
+
+            {
+                prog: 'M.Tech.(CSE)-AIML', code: '25102500', ranges: [
+                    { s: 1, e: 12, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                    { s: 13, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                    { s: 16, e: 31, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '311' },
+                    { s: 32, e: 36, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '312' },
+                ]
+            },
+
+            {
+                prog: 'M.Tech.(CSE)-DS', code: '25102350', ranges: [
+                    { s: 1, e: 11, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                ]
+            },
+
+            {
+                prog: 'M.Tech.(RA)', code: '25102320', ranges: [
+                    { s: 1, e: 2, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                ]
+            },
+
+            {
+                prog: 'DMLT', code: '25104090', ranges: [
+                    { s: 1, e: 14, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                    { s: 15, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(PA)', code: '25103130', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '307' },
+                    { s: 16, e: 27, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '308' },
+                    { s: 28, e: 40, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '309' },
+                    { s: 41, e: 49, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(BT)-Hons', code: '25103470', ranges: [
+                    { s: 1, e: 17, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '508' },
+                    { s: 18, e: 20, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '509' },
+                    { s: 21, e: 35, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '510' },
+                    { s: 36, e: 50, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '511' },
+                    { s: 51, e: 65, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '512' },
+                    { s: 66, e: 80, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '514' },
+                    { s: 81, e: 96, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '515' },
+                    { s: 97, e: 112, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '602' },
+                    { s: 113, e: 128, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '603' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(FND)-Hons', code: '25103490', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '509' },
+                    { s: 16, e: 30, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '510' },
+                    { s: 31, e: 46, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '511' },
+                    { s: 47, e: 54, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '512' },
+                ]
+            },
+
+            {
+                prog: 'BBA-Hons', code: '25103510', ranges: [
+                    { s: 1, e: 7, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '512' },
+                    { s: 8, e: 22, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '514' },
+                    { s: 23, e: 38, building: 'Rammohan Bhavan (Building VI)', floor: 'Fifth Floor', room: '515' },
+                    { s: 39, e: 54, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '602' },
+                    { s: 55, e: 57, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '603' },
+                    { s: 58, e: 72, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '605' },
+                    { s: 73, e: 87, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '606' },
+                    { s: 88, e: 103, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '607' },
+                    { s: 104, e: 120, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '608' },
+                    { s: 121, e: 135, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '609' },
+                    { s: 136, e: 152, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '610' },
+                    { s: 153, e: 167, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '611' },
+                    { s: 168, e: 182, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '612' },
+                    { s: 183, e: 197, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '614' },
+                    { s: 199, e: 212, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '615' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(PSY)-Hons', code: '25103560', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '605' },
+                    { s: 17, e: 31, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '606' },
+                    { s: 32, e: 47, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '607' },
+                    { s: 48, e: 62, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '608' },
+                    { s: 63, e: 78, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '609' },
+                    { s: 79, e: 90, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '610' },
+                ]
+            },
+
+            {
+                prog: 'B.Sc.(MSJ)-Hons', code: '25103530', ranges: [
+                    { s: 1, e: 18, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '603' },
+                ]
+            },
+
+            {
+                prog: 'BBA LL.B.', code: '25103150', ranges: [
+                    { s: 1, e: 4, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '610' },
+                    { s: 5, e: 19, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '611' },
+                    { s: 20, e: 34, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '612' },
+                    { s: 35, e: 49, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '614' },
+                    { s: 50, e: 52, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '615' },
+                    { s: 53, e: 67, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '702' },
+                    { s: 68, e: 83, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '703' },
+                    { s: 84, e: 98, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '705' },
+                    { s: 99, e: 113, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '706' },
+                    { s: 114, e: 129, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '707' },
+                    { s: 130, e: 144, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '708' },
+                    { s: 145, e: 160, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '709' },
+                    { s: 161, e: 176, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '711' },
+                    { s: 177, e: 179, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '712' },
+                ]
+            },
+
+            {
+                prog: 'BBA(BA)-Hons', code: '25103570', ranges: [
+                    { s: 1, e: 16, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '615' },
+                    { s: 17, e: 32, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '702' },
+                    { s: 33, e: 41, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '703' },
+                ]
+            },
+
+            {
+                prog: 'BBA(DM)-Hons', code: '25103550', ranges: [
+                    { s: 1, e: 7, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '703' },
+                    { s: 8, e: 22, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '705' },
+                    { s: 23, e: 37, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '706' },
+                    { s: 38, e: 52, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '707' },
+                    { s: 53, e: 68, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '708' },
+                    { s: 69, e: 83, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '709' },
+                    { s: 84, e: 88, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '711' },
+                ]
+            },
+
+            {
+                prog: 'MBA(HM)', code: '25102390', ranges: [
+                    { s: 1, e: 3, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '310' },
+                    { s: 4, e: 18, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '311' },
+                    { s: 19, e: 28, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '312' },
+                    { s: 29, e: 30, building: 'Rammohan Bhavan (Building VI)', floor: 'Third Floor', room: '314' },
+                ]
+            },
+
+            {
+                prog: 'BCA(MAWT)-Hons', code: '25103580', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '712' },
+                    { s: 16, e: 22, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '714' },
+                ]
+            },
+
+            {
+                prog: 'Dip.EE', code: '25104030', ranges: [
+                    { s: 1, e: 2, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '612' },
+                    { s: 3, e: 17, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '614' },
+                    { s: 18, e: 34, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '615' },
+                    { s: 35, e: 50, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '702' },
+                    { s: 51, e: 68, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '703' },
+                    { s: 69, e: 70, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '705' },
+                ]
+            },
+
+            {
+                prog: 'Dip.ME', code: '25104050', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '612' },
+                    { s: 16, e: 30, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '614' },
+                    { s: 32, e: 47, building: 'Rammohan Bhavan (Building VI)', floor: 'Sixth Floor', room: '615' },
+                    { s: 49, e: 66, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '702' },
+                    { s: 67, e: 78, building: 'Rammohan Bhavan (Building VI)', floor: 'Seventh Floor', room: '703' },
+                ]
+            },
+
+            {
+                prog: 'M.Pharm(PC)', code: '25102300', ranges: [
+                    { s: 1, e: 7, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                    { s: 8, e: 11, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                    { s: 12, e: 13, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '010' },
+                ]
+            },
+
+            {
+                prog: 'M.Pharm(Pharmaceutics)', code: '25102280', ranges: [
+                    { s: 1, e: 15, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                ]
+            },
+
+            {
+                prog: 'M.Com.(BFA)', code: '25102400', ranges: [
+                    { s: 1, e: 6, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                    { s: 7, e: 17, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '009' },
+                ]
+            },
+
+            {
+                prog: 'M.Optometry', code: '25102310', ranges: [
+                    { s: 1, e: 8, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                ]
+            },
+
+            {
+                prog: 'M.A.(ENG)', code: '25102370', ranges: [
+                    { s: 1, e: 20, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '007' },
+                    { s: 21, e: 30, building: 'Rammohan Bhavan (Building VI)', floor: 'Ground Floor', room: '008' },
+                ]
+            },
+        ];
+
+        // ─── LOOKUP ───────────────────────────────────────────────────────────────────
+        function lookup(raw) {
+            raw = raw.trim().replace(/\s/g, '');
+            const digits = raw.replace(/\D/g, '');
+
+            let code = null, rollNum = null;
+
+            if (digits.length === 11) {
+                code = digits.slice(0, 8);
+                rollNum = parseInt(digits.slice(8));
+            } else if (digits.length === 8) {
+                // just the code, no roll — invalid
+                return null;
+            } else if (digits.length <= 4 && digits.length > 0) {
+                // bare roll number — ambiguous, search all
+                rollNum = parseInt(digits);
+                code = null;
+            } else {
+                return null;
+            }
+
+            const prog = code ? programmes.find(p => p.code === code) : null;
+            const searchSet = prog ? [prog] : programmes;
+
+            for (const p of searchSet) {
+                for (const r of p.ranges) {
+                    if (rollNum >= r.s && rollNum <= r.e) {
+                        return { prog: p.prog, code: p.code, roll: rollNum, ...r };
+                    }
+                }
+            }
+            return null;
+        }
+
+        function find() {
+            const raw = document.getElementById('inp').value.trim();
+            const res = document.getElementById('result');
+
+            if (!raw) { res.className = 'result'; return; }
+
+            const found = lookup(raw);
+            res.className = 'result show';
+
+            if (!found) {
+                res.innerHTML = `
+      <div class="result-inner error-state">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <div class="err-msg">
+          <strong>No seat found for ${raw}</strong>
+          <p>Please check your roll number and try again. Use the full 11-digit number from your admit card.</p>
+        </div>
+      </div>`;
+                return;
+            }
+
+            res.innerHTML = `
+    <div class="result-inner success-state">
+      <div class="result-top-header">
+        <img src="logo.png" alt="Brainware University Logo" />
+        <div class="roll-pill">
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+          </div>
+          <div class="text-box">
+            <p>Roll Number</p>
+            <strong>${found.code}${String(found.roll).padStart(3, '0')}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="success-banner">
+        <div class="check-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="banner-text">
+          <h3>Seat Found!</h3>
+          <p>Your exam seat details are below.</p>
+        </div>
+      </div>
+
+      <div class="result-grid-new">
+        <div class="info-card room">
+          <div class="icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          </div>
+          <div class="info-content">
+            <span class="label">Room Number</span>
+            <span class="value">${found.room}</span>
+          </div>
+        </div>
+        
+        <div class="info-card building">
+          <div class="icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
+          </div>
+          <div class="info-content">
+            <span class="label">Building</span>
+            <span class="value">${found.building}</span>
+          </div>
+        </div>
+        
+        <div class="info-card floor">
+          <div class="icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </div>
+          <div class="info-content">
+            <span class="label">Floor</span>
+            <span class="value">${found.floor}</span>
+          </div>
+        </div>
+
+        <div class="info-card prog">
+          <div class="icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+          </div>
+          <div class="info-content">
+            <span class="label">Programme</span>
+            <span class="value">${found.prog}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-outline" onclick="window.print()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Print / Save
+        </button>
+        <button class="btn btn-solid" onclick="window.print()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download Seat Slip
+        </button>
+      </div>
+
+      <div class="footer-alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+        Please carry a valid admit card along with this seat slip to the examination hall.
+      </div>
+    </div>`;
+        }
+
+        function handleInput(el) {
+            el.value = el.value.replace(/[^0-9]/g, '');
+            const warning = document.getElementById('limit-warning');
+            if (el.value.length === 11) {
+                warning.classList.add('show');
+                clearTimeout(el.warningTimeout);
+                el.warningTimeout = setTimeout(() => {
+                    warning.classList.remove('show');
+                }, 3000);
+            } else {
+                warning.classList.remove('show');
+            }
+        }
+
+    </script>
+</body>
+
+</html>
